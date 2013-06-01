@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JoyaPeople.Web", "JoyaPeople.Web\JoyaPeople.Web.csproj", "{57FE6567-B46A-4896-BBB4-0156404F6C4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JoyaPeople.Domain", "JoyaPeople.Domain\JoyaPeople.Domain.csproj", "{6A941149-5A38-4947-B5BF-A964E10EC1FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JoyaPeople.Persistence", "JoyaPeople.Persistence\JoyaPeople.Persistence.csproj", "{F27C706C-98A3-40C9-BF17-B0A7AC693BC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JoyaPeople.UnitTests", "JoyaPeople.UnitTests\JoyaPeople.UnitTests.csproj", "{C1407750-E68F-4F02-AD9D-A291640EE799}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{065CCE95-062D-4575-A685-57A1ABBB2226}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{57FE6567-B46A-4896-BBB4-0156404F6C4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57FE6567-B46A-4896-BBB4-0156404F6C4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57FE6567-B46A-4896-BBB4-0156404F6C4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57FE6567-B46A-4896-BBB4-0156404F6C4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A941149-5A38-4947-B5BF-A964E10EC1FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A941149-5A38-4947-B5BF-A964E10EC1FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A941149-5A38-4947-B5BF-A964E10EC1FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A941149-5A38-4947-B5BF-A964E10EC1FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F27C706C-98A3-40C9-BF17-B0A7AC693BC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F27C706C-98A3-40C9-BF17-B0A7AC693BC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F27C706C-98A3-40C9-BF17-B0A7AC693BC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F27C706C-98A3-40C9-BF17-B0A7AC693BC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1407750-E68F-4F02-AD9D-A291640EE799}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1407750-E68F-4F02-AD9D-A291640EE799}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1407750-E68F-4F02-AD9D-A291640EE799}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1407750-E68F-4F02-AD9D-A291640EE799}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
