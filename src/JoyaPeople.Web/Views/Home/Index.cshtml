@@ -1,0 +1,29 @@
+﻿@model JoyaPeople.Web.Models.SearchVM
+@{
+    ViewBag.Title = "JoyaPeople Search";
+}
+
+<h2>Search</h2>
+
+@using (Html.BeginForm())
+{
+    <label>First Name:
+        @Html.TextBoxFor(m => m.FirstName)
+    </label>
+    <label>Last Name:
+        @Html.TextBoxFor(m => m.LastName)
+    </label>
+     
+    <input type="submit" value="Search" />
+}
+
+<ul>
+    @foreach (var member in Model.FoundMembers)
+    {
+        <li>
+            <div>@member.FirstName @member.LastName</div>
+            <div>@member.StreetAddress</div>
+            <div>@member.City, @member.StateCode @member.Zip</div>
+        </li>
+    }
+</ul>

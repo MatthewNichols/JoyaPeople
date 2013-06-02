@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using JoyaPeople.Domain;
 using MongoDB.Driver;
-using MongoDB.Bson;
+using MongoDB.Driver.Linq;
 
 namespace JoyaPeople.Persistence.Repositories
 {
@@ -40,6 +40,28 @@ namespace JoyaPeople.Persistence.Repositories
         {
             var mongoCollection = GetMongoCollection();
             mongoCollection.Save(member);
+        }
+
+        public IList<Member> SearchByName(string firstNameString, string lastNameString)
+        {
+            if (string.IsNullOrWhiteSpace(firstNameString) && string.IsNullOrWhiteSpace(lastNameString))
+            {
+                return new List<Member>();
+            }
+
+            var queryable = GetMongoCollection().AsQueryable();
+            //IQueryable<Member> results = null;
+            if (!string.IsNullOrWhiteSpace(firstNameString))
+            {
+                queryable = queryable.Where(m => m.FirstName.StartsWith(firstNameString));                    
+            }
+
+            if (!string.IsNullOrWhiteSpace(lastNameString))
+            {
+                queryable = queryable.Where(m => m.LastName.StartsWith(lastNameString));
+            }
+
+            return queryable.ToList();
         }
     }
 }
