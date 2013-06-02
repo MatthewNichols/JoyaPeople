@@ -44,10 +44,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Persistense\MemberRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JoyaPeople.Domain\JoyaPeople.Domain.csproj">
+      <Project>{6a941149-5a38-4947-b5bf-a964e10ec1fa}</Project>
+      <Name>JoyaPeople.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JoyaPeople.Persistence\JoyaPeople.Persistence.csproj">
+      <Project>{f27c706c-98a3-40c9-bf17-b0a7ac693bc1}</Project>
+      <Name>JoyaPeople.Persistence</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
