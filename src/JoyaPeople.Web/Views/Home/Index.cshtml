@@ -22,8 +22,11 @@
     {
         <li>
             <div>@member.FirstName @member.LastName</div>
-            <div>@member.StreetAddress</div>
-            <div>@member.City, @member.StateCode @member.Zip</div>
+            @if (member.HasAddress)
+            {
+                <div>@member.StreetAddress</div>
+                <div>@member.City, @member.StateCode @member.Zip</div>
+            }
         </li>
     }
 </ul>

@@ -45,5 +45,21 @@ namespace JoyaPeople.Web.Models
         public List<string> EmailAddresses { get; set; }
         public List<string> PhoneNumbers { get; set; }
         public string Notes { get; set; }
+
+        /// <summary>
+        /// Quick and easy indicator of whether to display Address info
+        /// </summary>
+        public bool HasAddress
+        {
+            get
+            {
+                return ! (
+                           string.IsNullOrWhiteSpace(StreetAddress) &&
+                           string.IsNullOrWhiteSpace(City) &&
+                           string.IsNullOrWhiteSpace(StateCode) &&
+                           string.IsNullOrWhiteSpace(Zip)
+                       );
+            }
+        }
     }
 }
