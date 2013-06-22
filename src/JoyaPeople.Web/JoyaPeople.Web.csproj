@@ -134,6 +134,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\MemberAddEditVM.cs" />
     <Compile Include="Models\MemberDisplayVM.cs" />
     <Compile Include="Models\SearchVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -225,6 +226,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-2.0.1.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\AddEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

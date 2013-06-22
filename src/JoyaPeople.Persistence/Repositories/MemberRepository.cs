@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using JoyaPeople.Domain;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
@@ -62,6 +63,11 @@ namespace JoyaPeople.Persistence.Repositories
             }
 
             return queryable.ToList();
+        }
+
+        public Member GetById(ObjectId id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
