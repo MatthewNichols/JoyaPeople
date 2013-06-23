@@ -25,18 +25,36 @@ namespace JoyaPeople.Web.Controllers
         [HttpGet]
         public ActionResult Add()
         {
-            return View("AddEdit");
+            var vm = new MemberAddEditVM();
+            return View("AddEdit", vm);
         }
 
         [HttpGet]
-        public ActionResult Edit(ObjectId id)
+        public ActionResult Edit(string id)
         {
             var repository = new MemberRepository();
 
-            var member = repository.GetById(id);
+            var member = repository.GetById(ObjectId.Parse(id));
             var vm = new MemberAddEditVM(member);
 
             return View("AddEdit", vm);
+        }
+
+        [HttpPost]
+        public ActionResult Save(MemberAddEditVM vm, string id)
+        {
+            //TODO: Do some validation here and return if something is wrong
+
+
+            var objectId = ObjectId.Parse(id);
+            vm.Id = objectId;
+
+            var repository = new MemberRepository();
+
+            var member = vm.ToMember();
+            repository.Save(member);
+
+            return RedirectToAction("Index");
         }
     }
 

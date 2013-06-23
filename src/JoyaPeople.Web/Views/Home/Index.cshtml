@@ -21,7 +21,10 @@
     @foreach (var member in Model.FoundMembers)
     {
         <li>
-            <div>@member.FirstName @member.LastName</div>
+            <div>
+                @member.FirstName @member.LastName
+                @Html.ActionLink("Edit", "Edit", new { @id = member.Id })
+            </div>
             @if (member.HasAddress)
             {
                 <div>@member.StreetAddress</div>

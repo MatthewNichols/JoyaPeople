@@ -67,7 +67,8 @@ namespace JoyaPeople.Persistence.Repositories
 
         public Member GetById(ObjectId id)
         {
-            throw new NotImplementedException();
+            var mongoCollection = GetMongoCollection();
+            return mongoCollection.FindOneById(id);
         }
     }
 }

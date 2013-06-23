@@ -134,6 +134,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AddressEditVM.cs" />
     <Compile Include="Models\MemberAddEditVM.cs" />
     <Compile Include="Models\MemberDisplayVM.cs" />
     <Compile Include="Models\SearchVM.cs" />
@@ -227,6 +228,8 @@
     <Content Include="Scripts\jquery-2.0.1.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\AddEdit.cshtml" />
+    <Content Include="Views\Home\EditorTemplates\AddressEditVM.cshtml" />
+    <Content Include="Views\Home\EditorTemplates\MemberAddEditVM.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

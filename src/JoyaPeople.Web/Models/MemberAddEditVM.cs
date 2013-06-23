@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +11,7 @@ namespace JoyaPeople.Web.Models
     {
         public MemberAddEditVM()
         {
+            Id = ObjectId.Empty;
             Address=new AddressEditVM();
             EmailAddresses = new List<string>();
             PhoneNumbers = new List<string>();
@@ -38,24 +38,20 @@ namespace JoyaPeople.Web.Models
         public List<string> EmailAddresses { get; set; }
         public List<string> PhoneNumbers { get; set; }
         public string Notes { get; set; }
-    }
 
-    public class AddressEditVM
-    {
-        public AddressEditVM()
-        { }
-
-        public AddressEditVM(Address address)
+        public Member ToMember()
         {
-            StreetAddress = address.StreetAddress;
-            City = address.City;
-            StateCode = address.StateCode;
-            Zip = address.Zip;
+            return new Member
+                {
+                    Id = this.Id,
+                    FirstName = this.FirstName,
+                    LastName = this.LastName,
+                    MiddleName = this.MiddleName,
+                    Address = this.Address.ToAddress(),
+                    EmailAddresses = this.EmailAddresses,
+                    PhoneNumbers = this.PhoneNumbers,
+                    Notes = this.Notes
+                };
         }
-
-        public String StreetAddress { get; set; }
-        public string City { get; set; }
-        public string StateCode { get; set; }
-        public string Zip { get; set; }
     }
 }
