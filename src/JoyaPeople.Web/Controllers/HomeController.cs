@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using JoyaPeople.Domain;
+using JoyaPeople.Domain.Interfaces;
 using JoyaPeople.Persistence.Repositories;
 using JoyaPeople.Web.Models;
 using MongoDB.Bson;
@@ -12,12 +13,17 @@ namespace JoyaPeople.Web.Controllers
 {
     public class HomeController : Controller
     {
-        
+        private IMemberRepository _memberRepository;
+
+        public HomeController(IMemberRepository memberRepository)
+        {
+            _memberRepository = memberRepository;
+        }
+
         public ActionResult Index(SearchVM vm)
         {
-            var repository = new MemberRepository();
             vm.FoundMembers = 
-                repository.SearchByName(vm.FirstName, vm.LastName)
+                _memberRepository.SearchByName(vm.FirstName, vm.LastName)
                 .Select(m => new MemberDisplayVM(m)).ToList();
             return View(vm);
         }
@@ -32,9 +38,7 @@ namespace JoyaPeople.Web.Controllers
         [HttpGet]
         public ActionResult Edit(string id)
         {
-            var repository = new MemberRepository();
-
-            var member = repository.GetById(ObjectId.Parse(id));
+            var member = _memberRepository.GetById(ObjectId.Parse(id));
             var vm = new MemberAddEditVM(member);
 
             return View("AddEdit", vm);
@@ -49,10 +53,8 @@ namespace JoyaPeople.Web.Controllers
             var objectId = ObjectId.Parse(id);
             vm.Id = objectId;
 
-            var repository = new MemberRepository();
-
             var member = vm.ToMember();
-            repository.Save(member);
+            _memberRepository.Save(member);
 
             return RedirectToAction("Index");
         }
