@@ -13,7 +13,7 @@ namespace JoyaPeople.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private IMemberRepository _memberRepository;
+        private readonly IMemberRepository _memberRepository;
 
         public HomeController(IMemberRepository memberRepository)
         {

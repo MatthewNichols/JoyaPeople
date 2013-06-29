@@ -8,6 +8,7 @@ using JoyaPeople.Domain;
 using JoyaPeople.Domain.Interfaces;
 using JoyaPeople.Web.Controllers;
 using JoyaPeople.Web.Models;
+using MongoDB.Bson;
 using Moq;
 using NUnit.Framework;
 
@@ -68,6 +69,31 @@ namespace JoyaPeople.UnitTests.Web.Controllers
             {
                 Assert.IsNotNull(vm.FoundMembers.Single(m => m.FirstName == member.FirstName && m.LastName == m.LastName));
             }
+        }
+
+        [Test]
+        public void SaveTest()
+        {
+            Member submittedMember = null;
+            var mockRepos = new Mock<IMemberRepository>();
+            mockRepos.Setup(r => r.Save(It.IsAny<Member>()))
+                     .Callback((Member m) => submittedMember = m);
+
+            var controller = new HomeController(mockRepos.Object);
+
+            const string firstNameTestValue = "Bill";
+            const string lastNameTestValue = "Smith";
+            var idString = ObjectId.GenerateNewId().ToString();
+
+            var memberAddEditVM = new MemberAddEditVM {FirstName = firstNameTestValue, LastName = lastNameTestValue};
+
+            var redirectResult = controller.Save(memberAddEditVM, idString) as RedirectToRouteResult;
+
+            Assert.IsNotNull(redirectResult);
+
+            Assert.AreEqual(firstNameTestValue, submittedMember.FirstName);
+            Assert.AreEqual(lastNameTestValue, submittedMember.LastName);
+            Assert.AreEqual(ObjectId.Parse(idString), submittedMember.Id);
         }
     }
 }
