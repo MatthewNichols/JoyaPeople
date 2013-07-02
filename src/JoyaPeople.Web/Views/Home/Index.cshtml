@@ -27,8 +27,8 @@
             </div>
             @if (member.HasAddress)
             {
-                <div>@member.StreetAddress</div>
-                <div>@member.City, @member.StateCode @member.Zip</div>
+                <div>@member.AddressStreetAddress</div>
+                <div>@member.AddressCity, @member.AddressStateCode @member.AddressZip</div>
             }
         </li>
     }

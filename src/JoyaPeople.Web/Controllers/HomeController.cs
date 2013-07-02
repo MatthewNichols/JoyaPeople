@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using JoyaPeople.Domain;
 using JoyaPeople.Domain.Interfaces;
-using JoyaPeople.Persistence.Repositories;
 using JoyaPeople.Web.Models;
 using MongoDB.Bson;
 
@@ -24,7 +21,8 @@ namespace JoyaPeople.Web.Controllers
         {
             vm.FoundMembers = 
                 _memberRepository.SearchByName(vm.FirstName, vm.LastName)
-                .Select(m => new MemberDisplayVM(m)).ToList();
+                .Select(Mapper.Map<MemberDisplayVM>).ToList();
+
             return View(vm);
         }
 
@@ -39,7 +37,7 @@ namespace JoyaPeople.Web.Controllers
         public ActionResult Edit(string id)
         {
             var member = _memberRepository.GetById(ObjectId.Parse(id));
-            var vm = new MemberAddEditVM(member);
+            var vm = Mapper.Map<MemberAddEditVM>(member);
 
             return View("AddEdit", vm);
         }
@@ -53,7 +51,8 @@ namespace JoyaPeople.Web.Controllers
             var objectId = ObjectId.Parse(id);
             vm.Id = objectId;
 
-            var member = vm.ToMember();
+            var member = Mapper.Map<Member>(vm);
+
             _memberRepository.Save(member);
 
             return RedirectToAction("Index");
