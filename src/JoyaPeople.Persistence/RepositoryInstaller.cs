@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Configuration;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
@@ -15,9 +11,12 @@ namespace JoyaPeople.Persistence
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            var connectionString = ConfigurationManager.ConnectionStrings["joyaPeopleMongo"].ConnectionString;
             container.Register(
                 Component.For<IMemberRepository>()
-                .ImplementedBy<MemberRepository>());
+                    .ImplementedBy<MemberRepository>()
+                    .DependsOn(Dependency.OnConfigValue("connectionString", connectionString))
+                );
         }
     }
 }

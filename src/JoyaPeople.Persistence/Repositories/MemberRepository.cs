@@ -13,29 +13,44 @@ namespace JoyaPeople.Persistence.Repositories
 {
     public class MemberRepository : IMemberRepository
     {
-        /// <summary>
-        /// Creates connection to MongoDB server and returns reference 
-        /// to desired MongoCollection.
-        /// </summary>
-        private MongoCollection<Member> GetMongoCollection()
+        private MongoDatabase _mongoDatabase;
+
+        public MemberRepository(string connectionString)
         {
-            //Create MongoClient with hard coded connection string.  Clearly 
-            //a hard coded connection string is a bad idea in almost any real 
-            //application and we won't tolerate it here for very long.
-            var mongoClient = new MongoClient("mongodb://localhost");
-            
+            OpenConnection(connectionString);
+        }
+
+        /// <summary>
+        /// Create a connection to the DB specifies in the connectionString.
+        /// </summary>
+        /// <param name="connectionString">Specifies the Db to connect to.</param>
+        private void OpenConnection(string connectionString)
+        {
+            //Use the MongoUrl class to parse the connectionString
+            var mongoUrl = new MongoUrl(connectionString);
+
+            //Create a MongoClient with the new mongoUrl object instead of a url string.
+            var mongoClient = new MongoClient(mongoUrl);
+
             //Get a refernce to the server
             var mongoServer = mongoClient.GetServer();
             mongoServer.Connect();
-            
-            //Connect to the database. Same concern here about the hard coded 
-            //database name.
-            var mongoDatabase = mongoServer.GetDatabase("mongoPeople");
 
-            //Finally return a reference to the Members collection. Hard coding
-            //the collection name is probably ok, unless we will be storing to 
-            //multiple different collections.  
-            return mongoDatabase.GetCollection<Member>("members");
+            //Connect to the database using the mongoUrl again but to get the DatabaseName
+            _mongoDatabase = mongoServer.GetDatabase(mongoUrl.DatabaseName);
+        }
+
+        /// <summary>
+        /// Returns reference to desired MongoCollection.
+        /// </summary>
+        private MongoCollection<Member> GetMongoCollection()
+        {
+            //Return a reference to the Members collection. Hard coding
+            //the collection name is typically ok here, unless we will be storing to 
+            //multiple different collections of the same type in the same Db.  In that case it would
+            //probably be better to pass the collection name in on the constructor or set it from a 
+            //property.
+            return _mongoDatabase.GetCollection<Member>("members");
         }
 
         public void Save(Member member)
