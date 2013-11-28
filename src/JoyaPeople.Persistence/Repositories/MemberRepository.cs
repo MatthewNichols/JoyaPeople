@@ -43,7 +43,7 @@ namespace JoyaPeople.Persistence.Repositories
         /// <summary>
         /// Returns reference to desired MongoCollection.
         /// </summary>
-        private MongoCollection<Member> GetMongoCollection()
+        public MongoCollection<Member> GetMongoCollection()
         {
             //Return a reference to the Members collection. Hard coding
             //the collection name is typically ok here, unless we will be storing to 

@@ -9,67 +9,51 @@ using NUnit.Framework;
 
 namespace JoyaPeople.UnitTests.Persistense
 {
+    /// <summary>
+    /// Persistense Unit tests using a disposible database.  Will be cleaned out after each test.
+    /// </summary>
     [TestFixture]
     public class MemberRepositoryTests
     {
-        [Test]
-        public void SaveTest_HappyPath()
+        /// <summary>
+        /// Connection string to a disposable database for the tests.  Will be cleaned out after each test.
+        /// </summary>
+        private const string UnitTestConnectionString = "mongodb://localhost/joyapeopleunittests";
+
+        [TestFixtureTearDown]
+        public void CleanUp()
         {
+            var memberRepository = new MemberRepository(UnitTestConnectionString);
+            memberRepository.GetMongoCollection().Drop();
+        }
+
+        [Test]
+        public void SaveTest_HappyPath_SingleInsert()
+        {
+            const string firstNameString = "John";
+            const string lastNameString = "Smith";
+
             var member = new Member
                 {
-                    FirstName = "John", 
-                    LastName = "Smith"
+                    FirstName = firstNameString, 
+                    LastName = lastNameString
                 };
 
-            var memberRepository = new MemberRepository();
+            var memberRepository = new MemberRepository(UnitTestConnectionString);
 
             memberRepository.Save(member);
+
+            var membersByName = memberRepository.SearchByName(firstNameString, lastNameString);
+
+            Assert.IsNotNull(membersByName);
+            Assert.AreEqual(1, membersByName.Count);
+
+            var retrivedMember = membersByName.Single();
+
+            Assert.AreEqual(firstNameString, retrivedMember.FirstName);
+            Assert.AreEqual(lastNameString, retrivedMember.LastName);
         }
 
-        [Test]
-        [Explicit]
-        public void AddTestRecords()
-        {
-            var memberRepository = new MemberRepository();
-
-            var membersToInsert = new List<Member>
-                {
-
-                    new Member
-                        {
-                            FirstName = "Adam",
-                            LastName = "Smith",
-                            Address = new Address
-                                {
-                                    StreetAddress = "123 First St",
-                                    City = "Denver",
-                                    StateCode = "CO",
-                                    Zip = "80242"
-                                }
-                        },
-                        new Member
-                        {
-                            FirstName = "Bill",
-                            LastName = "Jones",
-                        },
-                        new Member
-                        {
-                            FirstName = "Bo",
-                            LastName = "Jangles",
-                            Address = new Address
-                                {
-                                    StreetAddress = "234 Second St",
-                                    City = "Denver",
-                                    StateCode = "CO",
-                                    Zip = "80242"
-                                }
-                        }
-                };
-
-            foreach (var member in membersToInsert)
-            {
-                memberRepository.Save(member);                
-            }
-        }
+        //Clearly more tests down here would be good
     }
 }
